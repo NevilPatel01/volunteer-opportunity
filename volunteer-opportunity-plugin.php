@@ -16,7 +16,7 @@ Author: Nevil Patel
  */
 function myplugin_activate() {
     global $wpdb;
-    $wpdb->query("CREATE TABLE volunteer_opportunity (
+    $sql = $wpdb->query("CREATE TABLE volunteer_opportunity (
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     position VARCHAR(255) NOT NULL,
     organization VARCHAR(255) NOT NULL,
@@ -27,8 +27,24 @@ function myplugin_activate() {
     hours DECIMAL(4,2) NOT NULL,
     skills_required TEXT NOT NULL
     );");
-    // $wpdb->query("INSERT INTO Events (Name) VALUES ('Coffee Break');");
-    }
+
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta($sql);
+
+    $wpdb->insert(
+        $table_name,
+        array(
+            'position' => 'accountant',
+            'organization' => 'BAPS sanstha',
+            'type' => 'seasonal',
+            'email' => 'baps@sanstha.org',
+            'description' => 'Seva alukik seva',
+            'location' => 'Hamilton',
+            'hours' => 11.11,
+            'skills_required' => 'basic accountant skills'
+        )
+    );
+}
     register_activation_hook( __FILE__,
     'myplugin_activate' );
     
@@ -39,6 +55,5 @@ function myplugin_activate() {
 function myplugin_deactivate() {
     global $wpdb;
     $wpdb->query("DELETE FROM volunteer_opportunity;");
-    }
-    register_deactivation_hook( __FILE__,
-    'myplugin_deactivate' );
+}
+    register_deactivation_hook( __FILE__, 'myplugin_deactivate' );
