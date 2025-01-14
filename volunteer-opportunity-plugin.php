@@ -50,3 +50,20 @@ Author: Nevil Patel
     /**
      * Admin panel feature
      */
+    // Hook to create the admin menu
+add_action('admin_menu', 'volunteer_admin_menu');
+
+function volunteer_admin_menu() {
+    add_menu_page(
+        'Volunteer Opportunities', 
+        'Volunteer', 
+        'manage_options', 
+        'volunteer', 
+        'volunteer_admin_panel'
+    );
+}
+
+function volunteer_admin_panel() {
+    global $wpdb;
+    $table_name = 'volunteer_opportunity';
+}
