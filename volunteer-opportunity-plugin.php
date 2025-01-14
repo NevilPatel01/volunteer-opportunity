@@ -94,5 +94,26 @@ function volunteer_admin_panel() {
             </table>
             <p class="submit"><button type="submit" name="submit">submit</button></button></p>
         </form>
+
+        <!-- Display Existing Opportunities by getting all the data from the database -->
+        <h2>Existing Opportunities</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Position</th>
+                    <th>Organization</th>
+                    <th>Type</th>
+                    <th>Email</th>
+                    <th>Location</th>
+                    <th>Hours</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <p>No volunteering opportunities available.</p>
+    </div>
     <?php   
 }
