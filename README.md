@@ -25,7 +25,7 @@
   - [X] Skills Required
 
 ### Admin Menu
-- [ ] Add a "Volunteer" menu to the WordPress admin panel.
+- [X] Add a "Volunteer" menu to the WordPress admin panel.
 - [ ] Allow admin users to:
   - [ ] Create opportunities
   - [ ] Update opportunities

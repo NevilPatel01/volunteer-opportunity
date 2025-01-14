@@ -63,7 +63,36 @@ function volunteer_admin_menu() {
     );
 }
 
+/**
+ * Volunteer admin panel with HTML and logic
+ */
 function volunteer_admin_panel() {
     global $wpdb;
     $table_name = 'volunteer_opportunity';
+
+    //Add Opportunity from here! 
+    ?>
+    <div>
+        <h1>Volunteer Opportunities</h1>
+        <form method="POST">
+            <input type="hidden" name="update_volunteer">
+            <table class="form-table">
+                <tr><th>Position</th><td><input type="text" name="position" required></td></tr>
+                <tr><th>Organization</th><td><input type="text" name="organization" required></td></tr>
+                <tr><th>Type</th><td>
+                    <select name="type" required>
+                        <option value="one-time">One-Time</option>
+                        <option value="recurring">Recurring</option>
+                        <option value="seasonal">Seasonal</option>
+                    </select>
+                </td></tr>
+                <tr><th>Email</th><td><input type="email" name="email" required></td></tr>
+                <tr><th>Description</th><td><textarea name="description" required></textarea></td></tr>
+                <tr><th>Location</th><td><input type="text" name="location" required></td></tr>
+                <tr><th>Hours</th><td><input type="number" name="hours" required></td></tr>
+                <tr><th>Skills Required</th><td><textarea name="skills_required" required></textarea></td></tr>
+            </table>
+            <p class="submit"><button type="submit" name="submit">submit</button></button></p>
+        </form>
+    <?php   
 }
