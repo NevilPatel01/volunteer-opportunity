@@ -27,18 +27,18 @@ function myplugin_activate() {
     hours DECIMAL(4,2) NOT NULL,
     skills_required TEXT NOT NULL,
     );");
-    $wpdb->query("INSERT INTO Events (Name) VALUES ('Coffee Break');");
+    // $wpdb->query("INSERT INTO Events (Name) VALUES ('Coffee Break');");
     }
     register_activation_hook( __FILE__,
     'myplugin_activate' );
     
-    /**
-     * myplugin_deactivate to deactivate the volunteer opportunity plugin.
-     * it delete all the values from the volunteer_opportunity table.
-     */
-    function myplugin_deactivate() {
-        global $wpdb;
-        $wpdb->query("DELETE FROM volunteer_opportunity;");
-        }
-        register_deactivation_hook( __FILE__,
-        'myplugin_deactivate' );
+/**
+ * myplugin_deactivate to deactivate the volunteer opportunity plugin.
+ * it delete all the values from the volunteer_opportunity table.
+ */
+function myplugin_deactivate() {
+    global $wpdb;
+    $wpdb->query("DELETE FROM volunteer_opportunity;");
+    }
+    register_deactivation_hook( __FILE__,
+    'myplugin_deactivate' );
