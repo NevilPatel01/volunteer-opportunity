@@ -25,7 +25,7 @@ function myplugin_activate() {
     description TEXT NOT NULL,
     location VARCHAR(255) NOT NULL,
     hours DECIMAL(4,2) NOT NULL,
-    skills_required TEXT NOT NULL,
+    skills_required TEXT NOT NULL
     );");
     // $wpdb->query("INSERT INTO Events (Name) VALUES ('Coffee Break');");
     }
