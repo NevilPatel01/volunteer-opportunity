@@ -8,21 +8,21 @@
 
 - [ ] Ensure the plugin can be:
   - [X] Activated
-  - [ ] Deactivated (remove data from the table)
+  - [X] Deactivated (remove data from the table)
   - [ ] Uninstalled (complete removal of plugin data and database table)
 
 ## Volunteer Opportunities Management
 
 ### Fields
-- [ ] Add fields for each volunteer opportunity:
-  - [ ] Position (e.g., "Club Volunteer")
-  - [ ] Organization
-  - [ ] Type (one-time, recurring, seasonal)
-  - [ ] E-mail
-  - [ ] Description
-  - [ ] Location
-  - [ ] Hours
-  - [ ] Skills Required
+- [X] Add fields for each volunteer opportunity:
+  - [X] Position (e.g., "Club Volunteer")
+  - [X] Organization
+  - [X] Type (one-time, recurring, seasonal)
+  - [X] E-mail
+  - [X] Description
+  - [X] Location
+  - [X] Hours
+  - [X] Skills Required
 
 ### Admin Menu
 - [ ] Add a "Volunteer" menu to the WordPress admin panel.
