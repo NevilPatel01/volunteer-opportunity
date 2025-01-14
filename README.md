@@ -2,7 +2,7 @@
 
 ## Plugin Folder Structure
 
-- [ ] Create a subfolder in `/wp-content/plugins` named `volunteer-opportunity-plugin`.
+- [x] Create a subfolder in `/wp-content/plugins` named `volunteer-opportunity-plugin`.
 
 ## Plugin Activation/Deactivation
 
