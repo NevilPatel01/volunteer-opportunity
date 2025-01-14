@@ -7,7 +7,7 @@
 ## Plugin Activation/Deactivation
 
 - [ ] Ensure the plugin can be:
-  - [ ] Activated
+  - [X] Activated
   - [ ] Deactivated (remove data from the table)
   - [ ] Uninstalled (complete removal of plugin data and database table)
 
