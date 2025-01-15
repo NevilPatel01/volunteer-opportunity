@@ -26,15 +26,15 @@
 
 ### Admin Menu
 - [X] Add a "Volunteer" menu to the WordPress admin panel.
-- [ ] Allow admin users to:
-  - [ ] Create opportunities
-  - [ ] Update opportunities
-  - [ ] Delete opportunities
-  - [ ] View all opportunities
+- [X] Allow admin users to:
+  - [X] Create opportunities
+  - [X] Update opportunities
+  - [X] Delete opportunities
+  - [X] View all opportunities
 
 ### Form Validation
-- [ ] Implement basic form validation for create and update operations.
-- [ ] Use appropriate form elements for inputs (e.g., dropdown for opportunity type).
+- [X] Implement basic form validation for create and update operations.
+- [X] Use appropriate form elements for inputs (e.g., dropdown for opportunity type).
 
 ## Volunteer Opportunities Display
 

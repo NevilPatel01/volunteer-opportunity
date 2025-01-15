@@ -70,10 +70,11 @@ function volunteer_admin_panel() {
     global $wpdb;
     $table_name = 'volunteer_opportunity';
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST') {
-        if(isset($_POST['add_volunteer'])) {
-            // If statement create new volunteer data using POST method.
-            $result = $wpdb->insert($table_name, [
+    // Handle form submissions
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (isset($_POST['add_volunteer'])) {
+            // Create new opportunity
+            $wpdb->insert($table_name, [
                 'position'        => sanitize_text_field($_POST['position']),
                 'organization'    => sanitize_text_field($_POST['organization']),
                 'type'            => sanitize_text_field($_POST['type']),
@@ -83,44 +84,69 @@ function volunteer_admin_panel() {
                 'hours'           => floatval($_POST['hours']),
                 'skills_required' => sanitize_textarea_field($_POST['skills_required'])
             ]);
-            
-            if ($result !== false) {
-                echo "<div><p>Volunteer opportunity added successfully!</p></div>";
-            } else {
-                echo "<div><p>Error: Unable to add volunteer opportunity. Please try again.</p></div>";
-            }
+            echo "<div class='updated'><p>Volunteer opportunity added successfully!</p></div>";
+        } elseif (isset($_POST['update_volunteer'])) {
+            // Update opportunity
+            $id = intval($_POST['update_volunteer']);
+            $wpdb->update($table_name, [
+                'position'        => sanitize_text_field($_POST['position']),
+                'organization'    => sanitize_text_field($_POST['organization']),
+                'type'            => sanitize_text_field($_POST['type']),
+                'email'           => sanitize_email($_POST['email']),
+                'description'     => sanitize_textarea_field($_POST['description']),
+                'location'        => sanitize_text_field($_POST['location']),
+                'hours'           => floatval($_POST['hours']),
+                'skills_required' => sanitize_textarea_field($_POST['skills_required'])
+            ], ['id' => $id]);
+            echo "<div class='updated'><p>Volunteer opportunity updated successfully!</p></div>";
+        } elseif (isset($_POST['delete_volunteer'])) {
+            // Delete opportunity
+            $id = intval($_POST['delete_volunteer']);
+            $wpdb->delete($table_name, ['id' => $id]);
+            echo "<div class='updated'><p>Volunteer opportunity deleted successfully!</p></div>";
         }
     }
 
+    // Fetch existing opportunities
     $opportunities = $wpdb->get_results("SELECT * FROM $table_name");
-    
-    //Add Opportunity from here! 
+
+    // Determine if we are editing an existing opportunity
+    $edit_opportunity = null;
+    if (isset($_GET['edit'])) {
+        $id = intval($_GET['edit']);
+        $edit_opportunity = $wpdb->get_row("SELECT * FROM $table_name WHERE id = $id");
+    }
+
+    // Admin panel interface
     ?>
     <div class="wrap">
         <h1>Volunteer Opportunities</h1>
+
+        <!-- Add/Edit Opportunity Form -->
+        <h2><?php echo $edit_opportunity ? 'Edit Opportunity' : 'Add New Opportunity'; ?></h2>
         <form method="POST">
-            <input type="hidden" name="update_volunteer">
-            <table>
-                <tr><th>Position</th><td><input type="text" name="position" required></td></tr>
-                <tr><th>Organization</th><td><input type="text" name="organization" required></td></tr>
+            <input type="hidden" name="update_volunteer" value="<?php echo esc_attr($edit_opportunity->id ?? ''); ?>">
+            <table class="form-table">
+                <tr><th>Position</th><td><input type="text" name="position" value="<?php echo esc_attr($edit_opportunity->position ?? ''); ?>" required></td></tr>
+                <tr><th>Organization</th><td><input type="text" name="organization" value="<?php echo esc_attr($edit_opportunity->organization ?? ''); ?>" required></td></tr>
                 <tr><th>Type</th><td>
                     <select name="type" required>
-                        <option value="one-time">One-Time</option>
-                        <option value="recurring">Recurring</option>
-                        <option value="seasonal">Seasonal</option>
+                        <option value="one-time" <?php selected($edit_opportunity->type ?? '', 'one-time'); ?>>One-Time</option>
+                        <option value="recurring" <?php selected($edit_opportunity->type ?? '', 'recurring'); ?>>Recurring</option>
+                        <option value="seasonal" <?php selected($edit_opportunity->type ?? '', 'seasonal'); ?>>Seasonal</option>
                     </select>
                 </td></tr>
-                <tr><th>Email</th><td><input type="email" name="email" required></td></tr>
-                <tr><th>Description</th><td><textarea name="description" required></textarea></td></tr>
-                <tr><th>Location</th><td><input type="text" name="location" required></td></tr>
-                <tr><th>Hours</th><td><input type="number" name="hours" required></td></tr>
-                <tr><th>Skills Required</th><td><textarea name="skills_required" required></textarea></td></tr>
+                <tr><th>Email</th><td><input type="email" name="email" value="<?php echo esc_attr($edit_opportunity->email ?? ''); ?>" required></td></tr>
+                <tr><th>Description</th><td><textarea name="description" required><?php echo esc_textarea($edit_opportunity->description ?? ''); ?></textarea></td></tr>
+                <tr><th>Location</th><td><input type="text" name="location" value="<?php echo esc_attr($edit_opportunity->location ?? ''); ?>" required></td></tr>
+                <tr><th>Hours</th><td><input type="number" name="hours" value="<?php echo esc_attr($edit_opportunity->hours ?? ''); ?>" step="0.01" required></td></tr>
+                <tr><th>Skills Required</th><td><textarea name="skills_required" required><?php echo esc_textarea($edit_opportunity->skills_required ?? ''); ?></textarea></td></tr>
             </table>
-            <p><button type="submit" name="submit">submit</button></button></p>
+            <p class="submit"><button type="submit" name="<?php echo $edit_opportunity ? 'update_volunteer' : 'add_volunteer'; ?>" value="<?php echo esc_attr($edit_opportunity->id ?? ''); ?>" class="button-primary"><?php echo $edit_opportunity ? 'Update Opportunity' : 'Add Opportunity'; ?></button></p>
         </form>
 
-          <!-- Display Existing Opportunities -->
-          <h2>Existing Opportunities</h2>
+        <!-- Display Existing Opportunities -->
+        <h2>Existing Opportunities</h2>
         <?php if (!empty($opportunities)): ?>
         <table class="widefat fixed" cellspacing="0">
             <thead>
