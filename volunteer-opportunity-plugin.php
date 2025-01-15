@@ -92,7 +92,8 @@ function volunteer_admin_panel() {
         }
     }
 
-
+    $opportunities = $wpdb->get_results("SELECT * FROM $table_name");
+    
     //Add Opportunity from here! 
     ?>
     <div class="wrap">
@@ -118,9 +119,10 @@ function volunteer_admin_panel() {
             <p><button type="submit" name="submit">submit</button></button></p>
         </form>
 
-        <!-- Display Existing Opportunities by getting all the data from the database -->
-        <h2>Existing Opportunities</h2>
-        <table>
+          <!-- Display Existing Opportunities -->
+          <h2>Existing Opportunities</h2>
+        <?php if (!empty($opportunities)): ?>
+        <table class="widefat fixed" cellspacing="0">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -134,9 +136,28 @@ function volunteer_admin_panel() {
                 </tr>
             </thead>
             <tbody>
+                <?php foreach ($opportunities as $opportunity): ?>
+                <tr>
+                    <td><?php echo esc_html($opportunity->id); ?></td>
+                    <td><?php echo esc_html($opportunity->position); ?></td>
+                    <td><?php echo esc_html($opportunity->organization); ?></td>
+                    <td><?php echo esc_html($opportunity->type); ?></td>
+                    <td><?php echo esc_html($opportunity->email); ?></td>
+                    <td><?php echo esc_html($opportunity->location); ?></td>
+                    <td><?php echo esc_html($opportunity->hours); ?></td>
+                    <td>
+                        <a href="?page=volunteer&edit=<?php echo $opportunity->id; ?>" class="button">Edit</a>
+                        <form method="POST" style="display:inline;">
+                            <button type="submit" name="delete_volunteer" value="<?php echo $opportunity->id; ?>" class="button-secondary">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
-        <p>No volunteering opportunities available.</p>
+        <?php else: ?>
+        <p>No volunteer opportunities available.</p>
+        <?php endif; ?>
     </div>
-    <?php   
+    <?php
 }
