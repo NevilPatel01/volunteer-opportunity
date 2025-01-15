@@ -85,22 +85,21 @@ function volunteer_admin_panel() {
             ]);
             
             if ($result !== false) {
-                echo "<div class='updated'><p>Volunteer opportunity added successfully!</p></div>";
+                echo "<div><p>Volunteer opportunity added successfully!</p></div>";
             } else {
-                echo "<div class='error'><p>Error: Unable to add volunteer opportunity. Please try again.</p></div>";
+                echo "<div><p>Error: Unable to add volunteer opportunity. Please try again.</p></div>";
             }
         }
     }
-}
 
 
     //Add Opportunity from here! 
     ?>
-    <div>
+    <div class="wrap">
         <h1>Volunteer Opportunities</h1>
         <form method="POST">
             <input type="hidden" name="update_volunteer">
-            <table class="form-table">
+            <table>
                 <tr><th>Position</th><td><input type="text" name="position" required></td></tr>
                 <tr><th>Organization</th><td><input type="text" name="organization" required></td></tr>
                 <tr><th>Type</th><td>
@@ -116,7 +115,7 @@ function volunteer_admin_panel() {
                 <tr><th>Hours</th><td><input type="number" name="hours" required></td></tr>
                 <tr><th>Skills Required</th><td><textarea name="skills_required" required></textarea></td></tr>
             </table>
-            <p class="submit"><button type="submit" name="submit">submit</button></button></p>
+            <p><button type="submit" name="submit">submit</button></button></p>
         </form>
 
         <!-- Display Existing Opportunities by getting all the data from the database -->
@@ -140,3 +139,4 @@ function volunteer_admin_panel() {
         <p>No volunteering opportunities available.</p>
     </div>
     <?php   
+}
