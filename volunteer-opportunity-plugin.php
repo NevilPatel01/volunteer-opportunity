@@ -70,6 +70,30 @@ function volunteer_admin_panel() {
     global $wpdb;
     $table_name = 'volunteer_opportunity';
 
+    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if(isset($_POST['add_volunteer'])) {
+            // If statement create new volunteer data using POST method.
+            $result = $wpdb->insert($table_name, [
+                'position'        => sanitize_text_field($_POST['position']),
+                'organization'    => sanitize_text_field($_POST['organization']),
+                'type'            => sanitize_text_field($_POST['type']),
+                'email'           => sanitize_email($_POST['email']),
+                'description'     => sanitize_textarea_field($_POST['description']),
+                'location'        => sanitize_text_field($_POST['location']),
+                'hours'           => floatval($_POST['hours']),
+                'skills_required' => sanitize_textarea_field($_POST['skills_required'])
+            ]);
+            
+            if ($result !== false) {
+                echo "<div class='updated'><p>Volunteer opportunity added successfully!</p></div>";
+            } else {
+                echo "<div class='error'><p>Error: Unable to add volunteer opportunity. Please try again.</p></div>";
+            }
+        }
+    }
+}
+
+
     //Add Opportunity from here! 
     ?>
     <div>
@@ -116,4 +140,3 @@ function volunteer_admin_panel() {
         <p>No volunteering opportunities available.</p>
     </div>
     <?php   
-}
