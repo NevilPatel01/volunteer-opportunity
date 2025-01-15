@@ -187,3 +187,14 @@ function volunteer_admin_panel() {
     </div>
     <?php
 }
+
+/**
+ * Shortcode implementations
+ */
+function wporg_shortcode($atts = [], $content = null){
+    global $wpdb;
+    $query = $wpdb->prepare("SELECT * FROM $table_name WHERE id=%d", $atts[0]);
+    $results = $wpdb->get_results($query);
+    return ($results[0]->id);
+    }
+    add_shortcode('event', 'wporg_shortcode');
